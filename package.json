@@ -1,0 +1,29 @@
+{
+  "name": "metaiklang",
+  "version": "1.0.0",
+  "description": "Bot to overthrow metaklang.",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blueart20/MetAI-bot-shit.git"
+  },
+  "keywords": [
+    "metaklang"
+  ],
+  "author": "fuckos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blueart20/MetAI-bot-shit/issues"
+  },
+  "homepage": "https://github.com/Blueart20/MetAI-bot-shit#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "nodemon": "^1.17.5",
+    "request": "^2.87.0",
+    "superagent": "^3.8.3",
+    "ytdl-core": "^0.20.4"
+  }
+}
