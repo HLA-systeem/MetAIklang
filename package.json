@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Blueart20/MetAI-bot-shit#readme",
   "dependencies": {
+    "clarifai": "^2.7.1",
     "discord.js": "^11.3.2",
     "nodemon": "^1.17.5",
     "request": "^2.87.0",
