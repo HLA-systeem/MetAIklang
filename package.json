@@ -2,7 +2,7 @@
   "name": "metaiklang",
   "version": "1.0.0",
   "description": "Bot to overthrow metaklang.",
-  "main": "main.js",
+  "main": "start.js",
   "scripts": {
     "test": "test"
   },
