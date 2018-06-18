@@ -2,7 +2,7 @@
 /node_modules
 
 # sensitive
-botSettings.json
+/settings
 
 # IDEs and editors
 /.idea

@@ -2,7 +2,7 @@ const DISCORD = require('discord.js');
 const BOT = new DISCORD.Client();
 const COMMANDS = new DISCORD.Collection();
 
-const AUTH = require('./botSettings.json').token;
+const AUTH = require('./settings/botSettings.json').token;
 const FUNCTIONS = require('./message');
 
 BOT.on('ready', () => {

@@ -1,7 +1,7 @@
 const CLARAFAI = require('clarifai');
 
 const VISION = new Clarifai.App({
-    apiKey: require('./botSettings.json').clairKey
+    apiKey: require('./settings/botSettings.json').clairKey
    });
 
 module.exports.look = (message, image) => { //make this an array in the future

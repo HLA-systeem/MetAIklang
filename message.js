@@ -1,5 +1,5 @@
 const DISCORD = require('discord.js');
-const PREFIX = require('./botSettings.json').prefix;
+const PREFIX = require('./settings/botSettings.json').prefix;
 const FS = require('fs');
 const VISION = require('./vision');
 
