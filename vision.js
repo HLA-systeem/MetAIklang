@@ -13,8 +13,8 @@ module.exports.look = (message, image) => { //make this an array in the future
             let predictions = res.outputs[0].data.concepts[0].value; //check if it's the doremy concept in the future
             let judge = Math.floor(predictions * 100);
             console.log(judge);
-            message.channel.send("I am " + judge + "% sure that I hate that image");
             if(judge > 70){
+                message.channel.send("I am " + judge + "% sure that I hate that image");
                 message.delete()
                 BOORU.posts({ tags: 'rating:safe junko_(touhou)' }).then(
                     function(posts){

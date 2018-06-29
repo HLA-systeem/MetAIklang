@@ -36,11 +36,10 @@ module.exports.onMessage = (BOT) => {
         }
 
         if(cmd){
-            console.log(cmd.run);
             cmd.run(BOT,message,args);
         }
 
-        if(ats != []){ //make sure to handle bulk upploads in the future
+        if(ats.length != 0){ //make sure to handle bulk upploads in the future
             if(ats[0] != null){
                 VISION.look(message,ats[0].url);
             }
