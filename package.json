@@ -4,7 +4,6 @@
   "description": "Bot to overthrow metaklang.",
   "main": "start.js",
   "scripts": {
-    "start" : "node start.js", 
     "test": "test"
   },
   "repository": {

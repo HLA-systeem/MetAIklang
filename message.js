@@ -44,12 +44,5 @@ module.exports.onMessage = (BOT) => {
                 VISION.look(message,ats[0].url);
             }
         }
-
-        for(i in words){
-            let word = words[i];
-            if (word == "metaklang" || word == "Metaklang" || word == "meta" || word == "meta" || word == "Meta" || word == "Mark" || word == "@Metaklang"){
-                message.channel.send('no u');
-            }
-        }
     });
 }
