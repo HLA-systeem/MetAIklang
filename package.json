@@ -25,6 +25,7 @@
     "discord.js": "^11.3.2",
     "nodemon": "^1.17.5",
     "request": "^2.87.0",
+    "simple-youtube-api": "^5.0.2",
     "superagent": "^3.8.3",
     "ytdl-core": "^0.20.4"
   }
