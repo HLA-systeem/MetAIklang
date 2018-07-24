@@ -9,7 +9,7 @@ module.exports.run = async (bot,message,args) => {
         .setThumbnail("https://cdn.discordapp.com/attachments/427943195184201749/450279289137397760/stupidklang.png")
         .addField(PREFIX + "Help", "Yeah, you know what this does.")
         .addField(PREFIX + "Purify <amount>", " Deletes images. If no number is given, it will purify everything in the channel. Otherwise it will grab that amount of the last messages")
-        .addField("Suggestions and Feedback?", "Send an electronic mail to metadevteam@outlook.com");
+        .addField("Suggestions and Feedback?", "Send an electronic mail to metadevteam@outlook.com, or a tweet to https://twitter.com/MetaklangT?lang=en");
         message.channel.send(helpMessage);
 }
 
