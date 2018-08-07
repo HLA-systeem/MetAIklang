@@ -76,8 +76,8 @@ function showResults(results,concept,message){
         resultMessage.addField("image " + i, result + "% sure it's " + concept)
     }
 
-    resultMessage.addField("Type 'MetaSample pos'", "To add these images as a positive example for the concept");
-    resultMessage.addField("Type 'MetaSample neg'", "To add these images as a negative example for the concept");
+    resultMessage.addField("Type 'metaSample pos'", "To add these images as a positive example for the concept");
+    resultMessage.addField("Type 'metaSample neg'", "To add these images as a negative example for the concept");
     message.channel.send(resultMessage);
 }
 

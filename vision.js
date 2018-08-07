@@ -15,7 +15,7 @@ module.exports.look = (message, image) => { //make this an array in the future
             console.log(judge + ' ' + res.outputs[0].data.concepts[0].name);
 
             if(res.outputs[0].data.concepts[0].name == "doremy sweet"){
-                if(judge > 70){
+                if(judge > 98){
                     message.channel.send(message.author + " needs to be purified");
                 
                     MEM.rememberImage(message,image)
@@ -31,7 +31,8 @@ module.exports.look = (message, image) => { //make this an array in the future
                             } 
                         )
                         .then(res => {
-                            BOORU.posts({ tags: 'rating:safe junko_(touhou)' })
+                            if(message.channel.nsfw == true){
+                                BOORU.posts({ tags: 'rating:explicit junko_(touhou)' })
                                 .then(
                                     (posts) => {
                                         let index = Math.floor(Math.random() * posts.length); // Select a random post from posts array
@@ -40,7 +41,20 @@ module.exports.look = (message, image) => { //make this an array in the future
                                         message.channel.send(url.href);
                                     }
                                 )
-                                .catch(err => console.log(err));
+                                .catch(err => console.log(err));         
+                            }
+                            else{
+                                BOORU.posts({ tags: 'rating:safe junko_(touhou)' })
+                                    .then(
+                                        (posts) => {
+                                            let index = Math.floor(Math.random() * posts.length); 
+                                            let post = posts[index];
+                                            let url = BOORU.url(post.file_url)
+                                            message.channel.send(url.href);
+                                        }
+                                    )
+                                    .catch(err => console.log(err));
+                                }
                             }
                         )
                         .catch(err => console.log(err));
