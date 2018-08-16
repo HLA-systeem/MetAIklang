@@ -3,8 +3,9 @@ const YTDL = require('ytdl-core');
 const YTID = require('get-youtube-id');
 const YTINFO = require('youtube-info');
 const REQ = require('request');
+const STOP = require('./stop');
 
-var queque = [];
+var queue = [];
 var queueNames = [];
 
 var playing = false;
@@ -16,30 +17,25 @@ var skippers = [];
 var searchSeeds = ["touhou crystallized silver"];
 
 module.exports.run = async (bot,message,args) => {
-    id = args[0];
+    link = args[0];
 
-    if(playing){
-        if(add_to_queue(id, message)){
-            YTINFO(id, function(err, info) {
+    if(isYT(link)){
+        if(playing){
+            let id = YTID(link);
+            queue.push(id);
+            
+            YTINFO(id, (err, info) => {
                 if (err) console.log(err);
-                message.channel.send("Added"+ info.title + "to queue");
+                message.channel.send("Added "+ info.title + " to queue");
                 queueNames.push(info.title);
             });
         }
+        else{
+            start(YTID(link),message);
+        }
     }
     else{
-        if(isYT(id)){
-            playing = true;
-            start(id,message);
-            YTINFO(id, function(err, info) {
-                if (err) console.log(err);
-                message.channel.send("Now playing " + info.title + "");
-            });
-        }
-        else{
-            message.channel.send("I'm a Youtuber, I only play from Youtbe.");
-        }
-
+        message.channel.send("I'm a Youtuber, I only play from Youtbe.");
     }
 }
 
@@ -63,44 +59,53 @@ function search(query, callback) {
     });
 }
 
-function addQueue(id, message) {
-    if (isYT(id)) {
-        queue.push(YTID(id));
-        return true;
-    } 
-    else {
-        message.channel.send("I'm a Youtuber, I only play from Youtbe.");
-        return false;
-    }
+function skip(message) {
+    dispatcher.end();
 }
 
+
 function start(id, message) {
-    guilds[message.guild.id].voiceChannel = message.member.voiceChannel;
+    let vc = message.member.voiceChannel;
+    if(vc == null){
+        message.channel.send("You must be in a Voice Channel for this to work.")
+    }
+    else{
+        vc.join()
+            .then((connection) => {
+                let stream = YTDL("https://www.youtube.com/watch?v=" + id, {
+                    filter: 'audioonly'
+                });
 
+                playing = true;
+                skipReq = 0;
+                skippers = [];
+                dispatcher = connection.playStream(stream);
 
+                dispatcher.on('end', function() {
+                    skipReq = 0;
+                    skippers = [];
 
-    guilds[message.guild.id].voiceChannel.join().then(function(connection) {
-        stream = ytdl("https://www.youtube.com/watch?v=" + id, {
-            filter: 'audioonly'
-        });
-        guilds[message.guild.id].skispReq = 0;
-        guilds[message.guild.id].skippers = [];
+                    if(queue.length === 0){
+                        queue = [];
+                        queueNames = [];
+                        playing = false;
+                        vc.leave();
+                    } 
+                    else{
+                        setTimeout(function() {
+                            console.log(queue[0]);
+                            start(queue[0], message);
+                            queue.shift();
+                            queueNames.shift();
+                        }, 500);
+                    }
+                });
 
-        guilds[message.guild.id].dispatcher = connection.playStream(stream);
-        guilds[message.guild.id].dispatcher.on('end', function() {
-            guilds[message.guild.id].skipReq = 0;
-            guilds[message.guild.id].skippers = [];
-            guilds[message.guild.id].queue.shift();
-            guilds[message.guild.id].queueNames.shift();
-            if (guilds[message.guild.id].queue.length === 0) {
-                guilds[message.guild.id].queue = [];
-                guilds[message.guild.id].queueNames = [];
-                guilds[message.guild.id].isfPlaying = false;
-            } else {
-                setTimeout(function() {
-                    playMusic(guilds[message.guild.id].queue[0], message);
-                }, 500);
-            }
-        });
-    });
+                YTINFO(id, (err, info) => {
+                    if (err) console.log(err);
+                    message.channel.send("Now playing " + info.title + "");
+                });
+            })
+            .catch(err => console.log(err));
+    }
 }

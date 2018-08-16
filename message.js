@@ -18,6 +18,8 @@ module.exports.onMessage = (BOT) => {
     });
 
     BOT.on('message', (message) => {
+        if (!message.guild) return;
+
         let words = message.content.split(/[\s.,?!]/);
         let cmd = BOT.commands.get(words[0].slice(PREFIX.length));
         let args = message.content.split(/[\s]/).slice(1);

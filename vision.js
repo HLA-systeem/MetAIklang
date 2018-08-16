@@ -23,13 +23,11 @@ module.exports.look = (message, image) => { //make this an array in the future
                             message.delete()
                                 .then((res) =>{
                                     return res;
-                                }
-                                )
+                                })
                                 .catch((err) => {
                                     console.log(err);
                                 });
-                            } 
-                        )
+                        })
                         .then(res => {
                             if(message.channel.nsfw == true){
                                 BOORU.posts({ tags: 'rating:explicit junko_(touhou)' })
@@ -55,8 +53,7 @@ module.exports.look = (message, image) => { //make this an array in the future
                                     )
                                     .catch(err => console.log(err));
                                 }
-                            }
-                        )
+                        })
                         .catch(err => console.log(err));
                 }
             }
