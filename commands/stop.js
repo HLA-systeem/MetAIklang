@@ -1,7 +1,7 @@
 
 module.exports.run = async (bot,message,args) => {
     let vc = message.member.voiceChannel;
-    console.log(vc);
+    
     if(bot.guilds.get(message.guild.id).voiceConnection == null){
         message.channel.send("But...I'm not in the Voice Channel..")
     }

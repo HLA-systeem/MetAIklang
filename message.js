@@ -1,4 +1,5 @@
 const DISCORD = require('discord.js');
+const SETTINGS = require('./settings/botSettings.json');
 const PREFIX = require('./settings/botSettings.json').prefix;
 const FS = require('fs');
 const VISION = require('./vision');
@@ -33,13 +34,18 @@ module.exports.onMessage = (BOT) => {
             message.channel.send('Why? Like, why would you DM a bot?');
         }
 
-        if(message.content == 'doremy'){ //for testing 
-            message.channel.send('I WILL BREAK YOUR LEGS');
+        if(!SETTINGS.mute){
+            if(message.content == 'doremy'){
+                message.channel.send('I WILL BREAK YOUR LEGS'); //for testing
+            }
         }
 
         if(cmd){
-            cmd.run(BOT,message,args);
+            if(!SETTINGS.mute || cmd.info.name == "Mute"){
+                cmd.run(BOT,message,args);
+            }
         }
+        
 
         if(ats.length != 0){ //make sure to handle bulk upploads in the future
             if(ats[0] != null){
